@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Box from './Components/Box';
-import React, { useState }  from "react";
+import React, { useEffect, useState }  from "react";
 
 
 function App() {
@@ -11,6 +11,29 @@ function App() {
   
    const [player,setPlayer]=useState('Player 1');
    const [winner,SetWinner]=useState('');
+
+
+
+useEffect(()=>{
+
+  if(declearWinner())
+    {
+      SetWinner(`Congratulations ${player} For Victory`);
+    }
+},[buttons])
+
+useEffect(()=>{
+
+  if(turn)
+  {
+    setPlayer('player 1');
+  }
+  else
+  {
+    setPlayer('player 0');
+  }
+
+},[turn])
 
 
 
@@ -70,7 +93,7 @@ function App() {
 
   function writeInBox(index) {
 
-    if(buttons[index] )
+    if(buttons[index] || declearWinner())
       {
        
         return ;
@@ -82,26 +105,27 @@ function App() {
 
     const newButtons = [...buttons]; 
 
+    
     if(turn)
       {
-        newButtons[index]='O';
+        newButtons[index]='1';
         setButtons(newButtons);
-        setPlayer('player 2');
-        setTurn(false);
+            setTurn(false);
+                  
+       
+        
       }
       else
       {
-        newButtons[index]='X';
+        newButtons[index]='0';
         setButtons(newButtons);
-        setPlayer('player 1');
+        
         setTurn(true);
+        
       }
 
 
-      if(declearWinner())
-        {
-          SetWinner(`Congratulations ${player} For Victory`);
-        }
+      
 
     
 
